@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LoginController : ControllerBase
+    {
+        // POST api/values
+        [HttpPost]
+        public void Post(string user, string password)
+        {
+
+        }
+    }
+}
