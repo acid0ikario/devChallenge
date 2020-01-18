@@ -12,3 +12,8 @@ C:\Users\Manuel\source\repos\devChallenge\WebApi\obj\Debug\netcoreapp2.2\WebApi.
 C:\Users\Manuel\source\repos\devChallenge\WebApi\obj\Debug\netcoreapp2.2\WebApi.RazorTargetAssemblyInfo.cache
 C:\Users\Manuel\source\repos\devChallenge\WebApi\obj\Debug\netcoreapp2.2\WebApi.dll
 C:\Users\Manuel\source\repos\devChallenge\WebApi\obj\Debug\netcoreapp2.2\WebApi.pdb
+C:\Users\Manuel\Source\Repos\devChallenge\WebApi\bin\Debug\netcoreapp2.2\DataAccess.dll
+C:\Users\Manuel\Source\Repos\devChallenge\WebApi\bin\Debug\netcoreapp2.2\DataAccess.pdb
+C:\Users\Manuel\Source\Repos\devChallenge\WebApi\obj\Debug\netcoreapp2.2\WebApi.csproj.CopyComplete
+C:\Users\Manuel\source\repos\devChallenge\WebApi\bin\Debug\netcoreapp2.2\Repository.dll
+C:\Users\Manuel\source\repos\devChallenge\WebApi\bin\Debug\netcoreapp2.2\Repository.pdb
