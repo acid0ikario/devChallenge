@@ -10,6 +10,7 @@ namespace DataAccess.Entities
     
     public partial class Orders
     {
+        [Key]
         public int orderId { get; set; }
         public string shippingAddress { get; set; }
         public int qty { get; set; }

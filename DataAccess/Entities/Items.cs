@@ -7,9 +7,10 @@ namespace DataAccess.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Items
     {
+        [Key]
         public int sku { get; set; }
         public int qty { get; set; }
         public string description { get; set; }

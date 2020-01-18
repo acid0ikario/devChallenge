@@ -10,6 +10,7 @@ namespace DataAccess.Entities
     
     public partial class Users
     {
+        [Key]
         public string userId { get; set; }
         public string password { get; set; }
         public string rolId { get; set; }

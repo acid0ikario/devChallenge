@@ -10,7 +10,8 @@ namespace DataAccess.Entities
     
     public partial class Roles
     {
-      
+
+        [Key]
         public string rolId { get; set; }
         public string description { get; set; }
     
