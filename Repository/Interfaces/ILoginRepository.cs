@@ -7,7 +7,7 @@ namespace Repository.Interfaces
 {
    public interface ILoginRepository
     {
-        bool AuthenticateUser(string user, string pass);
+        Users AuthenticateUser(string user, string pass);
         List<Users> GetListaUsers();
     }
 }

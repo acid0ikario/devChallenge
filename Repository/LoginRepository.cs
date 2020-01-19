@@ -16,12 +16,10 @@ namespace Repository
             _dbContext = pGSContext;
         }
 
-        public bool AuthenticateUser(string user, string pass)
+        public Users AuthenticateUser(string user, string pass)
         {
-          bool isAuthenticated =  _dbContext.Users.Any(x => x.userId == user && x.password == pass);
-          
-         
-          return isAuthenticated;
+            return  _dbContext.Users.FirstOrDefault(x => x.userId == user && x.password == pass);
+            
         }
 
         public List<Users> GetListaUsers()
