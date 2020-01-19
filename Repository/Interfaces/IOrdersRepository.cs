@@ -7,7 +7,9 @@ namespace Repository.Interfaces
 {
   public  interface IOrdersRepository
     {
-        bool CreateOrder(int sku, int qty, string userid);
-        bool CancelOrder(int orderId, string userid);
+        Orders CreateOrder(int sku, int qty, decimal price, string userid);
+        Orders CancelOrder(int orderId);
+        void SaveLogOrder(int orderId, string statusOrder);
+        List<Orders> GetListaOrders(string userId="");
     }
 }

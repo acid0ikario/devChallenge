@@ -9,5 +9,8 @@ namespace Repository.Interfaces
     {
         List<Items> GetlistaItems(int sku = 0);
         Items CreateItem(Items item);
+        Items UpdateItem(Items item);
+        void DecreseQty(int sku, int qty);
+        void IncreseQty(int sku, int qty);
     }
 }
