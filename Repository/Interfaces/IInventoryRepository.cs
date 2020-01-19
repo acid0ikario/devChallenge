@@ -7,5 +7,7 @@ namespace Repository.Interfaces
 {
    public interface IInventoryRepository
     {
+        List<Items> GetlistaItems(int sku = 0);
+        Items CreateItem(Items item);
     }
 }

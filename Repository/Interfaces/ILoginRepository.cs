@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Repository.Interfaces
 {
-   public interface ILoginRepositoty
+   public interface ILoginRepository
     {
         bool AuthenticateUser(string user, string pass);
         List<Users> GetListaUsers();
