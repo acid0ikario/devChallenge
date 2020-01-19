@@ -17,6 +17,7 @@ namespace DataAccess.Entities
         public string shippingAddress { get; set; }
         public int qty { get; set; }
         public string statusId { get; set; }
+        public decimal price { get; set; }
 
         public virtual Items Item { get; set; }
         public virtual StatusOrder StatusOrder { get; set; }
