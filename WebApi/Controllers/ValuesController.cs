@@ -24,6 +24,12 @@ namespace WebApi.Controllers
             return "value";
         }
 
+        [HttpGet("TestGet")]
+        public ActionResult<string> GetID(int id, string nom)
+        {
+            return Ok(id);
+        }
+
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
