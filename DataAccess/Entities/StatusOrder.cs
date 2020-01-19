@@ -12,6 +12,7 @@ namespace DataAccess.Entities
         public string description { get; set; }
 
       
+        public virtual ICollection<Orders> Orders { get; set; }
         public virtual ICollection<OrdersHistory> OrdersHistories { get; set; }
     }
 }
