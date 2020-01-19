@@ -29,11 +29,16 @@ namespace WebApi.Controllers
             _configuration = config;
         }
 
-        // POST api/values
+        
         [HttpPost("Authenticate")]
-        public void Post(string user, string password)
+        public IActionResult Authenticate ([FromBody] Users usuario)
         {
-           
+            Users objUsuario = _login.AuthenticateUser(usuario.userId, usuario.password);
+            if (objUsuario != null)
+            {
+                return BuildToken(objUsuario);
+            }
+            return Unauthorized("Usuario o contraseñas incorrectas");
         }
 
         [HttpGet]
