@@ -15,9 +15,9 @@ namespace WebApi.Controllers
     {
 
 
-        private readonly ILoginRepositoty _login;
+        private readonly ILoginRepository _login;
 
-        public LoginController(ILoginRepositoty login)
+        public LoginController(ILoginRepository login)
         {
             _login = login;
         }
