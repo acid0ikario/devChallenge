@@ -54,5 +54,20 @@ namespace Repository
             _dbContext.SaveChanges();
             return item;
         }
+
+        public List<Items> GetAvalibleSkus()
+        {
+            return _dbContext.Items.Where(x => x.qty > 0).ToList();
+        }
+
+        public Items GetItembyId(int sku)
+        {
+            return _dbContext.Items.FirstOrDefault(x => x.sku == sku);
+        }
+
+        public int GetStock(int sku)
+        {
+            return _dbContext.Items.FirstOrDefault(x => x.sku == sku).qty;
+        }
     }
 }

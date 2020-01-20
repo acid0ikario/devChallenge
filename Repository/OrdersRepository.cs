@@ -35,29 +35,29 @@ namespace Repository
             _dbContext.SaveChanges();
         }
 
-        Orders IOrdersRepository.CancelOrder(int orderId)
+        Orders IOrdersRepository.CancelOrder(Orders pOrder)
         {
-            Orders order = _dbContext.Orders.FirstOrDefault(x => x.orderId == orderId );
+            Orders order = _dbContext.Orders.FirstOrDefault(x => x.orderId == pOrder.orderId);
             if (order != null)
             {
                 order.statusId = "CAN";
                 _dbContext.Orders.Update(order);
                 _dbContext.SaveChanges();
                 _Inventory.IncreseQty(order.sku, order.qty);
-                SaveLogOrder(orderId, order.statusId);
+                SaveLogOrder(order.orderId, order.statusId);
                 return order;
             }
             return null;
         }
 
-        Orders IOrdersRepository.CreateOrder(int sku, int qty, decimal price, string userid)
+        Orders IOrdersRepository.CreateOrder(Orders order)
         {
-            Orders order = new Orders();
-            order.sku = sku;
-            order.qty = qty;
-            order.price = price;
-            order.userId = userid;
-            order.statusId = "OPN";
+            Orders orderadd = new Orders();
+            orderadd.sku = order.sku;
+            orderadd.qty = order.qty;
+            orderadd.price = _Inventory.GetItembyId(order.sku).price;
+            orderadd.userId = order.userId;
+            orderadd.statusId = "OPN";
             _Inventory.DecreseQty(order.sku, order.qty);
             _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
