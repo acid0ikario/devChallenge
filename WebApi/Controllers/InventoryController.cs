@@ -37,6 +37,12 @@ namespace WebApi.Controllers
             return Ok(_Inventory.GetlistaItems(sku));
         }
 
+        [HttpGet("GetAvalibleSku")]
+        public ActionResult<IEnumerable<string>> GetAvalibleSku()
+        {
+            return Ok(_Inventory.GetAvalibleSkus());
+        }
+
         // GET api/values
         [HttpPost("addItem")]
         public ActionResult<IEnumerable<string>> addItem([FromBody] Items item)
