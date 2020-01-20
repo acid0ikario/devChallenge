@@ -32,12 +32,9 @@ namespace WebApi.Controllers
 
         // GET api/values
         [HttpGet("GetListItems")]
-        public ActionResult<IEnumerable<string>> GetListItems(string sku = "")
+        public ActionResult<IEnumerable<string>> GetListItems(int sku = 0)
         {
-            string secretKey = _configuration.GetValue<string>("DevSecretKey");
-            var re = Request;
-            var header = Request.Headers.First(x => x.Key == "Authorization");
-            return Ok(isAdminUser(header.Value, secretKey));
+            return Ok(_Inventory.GetlistaItems(sku));
         }
 
         // GET api/values
@@ -46,7 +43,7 @@ namespace WebApi.Controllers
         {
            
             string secretKey = _configuration.GetValue<string>("DevSecretKey");
-            if (isAdminUser(GetTokenAuth(Request ), secretKey))
+            if (isAdminUser(GetTokenAuth(Request), secretKey))
             {
                 Items returnedItem = _Inventory.CreateItem(item);
                 return Ok(returnedItem);
