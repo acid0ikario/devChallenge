@@ -51,7 +51,7 @@ namespace WebApi.Helpers
 
             var claims = handler.ValidateToken(token, validations, out var tokenSecure);
 
-            return claims.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.UniqueName).Value;
+            return claims.Identity.Name;
                 
         }
 
