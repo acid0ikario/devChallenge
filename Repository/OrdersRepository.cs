@@ -52,12 +52,9 @@ namespace Repository
 
         Orders IOrdersRepository.CreateOrder(Orders order)
         {
-            Orders orderadd = new Orders();
-            orderadd.sku = order.sku;
-            orderadd.qty = order.qty;
-            orderadd.price = _Inventory.GetItembyId(order.sku).price;
-            orderadd.userId = order.userId;
-            orderadd.statusId = "OPN";
+
+            order.price = _Inventory.GetItembyId(order.sku).price;
+            order.statusId = "OPN";
             _Inventory.DecreseQty(order.sku, order.qty);
             _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
