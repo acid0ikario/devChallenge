@@ -19,6 +19,7 @@ using Repository.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Models;
+using System.Text;
 
 namespace WebApi
 {
@@ -40,8 +41,24 @@ namespace WebApi
             services.AddScoped<IOrdersRepository, OrdersRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+            string secretKey = Configuration.GetValue<string>("DevSecretKey");
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<DevPGSContext>().AddDefaultTokenProviders();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "pgs30.com",
+                    ValidAudience = "pgs30.com",
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(secretKey)),
+                    ClockSkew = TimeSpan.Zero
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
