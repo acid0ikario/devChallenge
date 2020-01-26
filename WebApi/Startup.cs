@@ -18,7 +18,7 @@ using Repository;
 using Repository.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
-using WebApi.Models;
+//using WebApi.Models;
 using System.Text;
 
 namespace WebApi
@@ -42,7 +42,7 @@ namespace WebApi
             services.AddScoped<IInventoryRepository, InventoryRepository>();
 
             string secretKey = Configuration.GetValue<string>("DevSecretKey");
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<DevPGSContext>().AddDefaultTokenProviders();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DevPGSContext>().AddDefaultTokenProviders();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
