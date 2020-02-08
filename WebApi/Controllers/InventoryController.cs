@@ -34,6 +34,7 @@ namespace WebApi.Controllers
         [HttpGet("GetListItems")]
         public ActionResult<IEnumerable<string>> GetListItems(int sku = 0)
         {
+            _Inventory.GetStock(1);
             return Ok(_Inventory.GetlistaItems(sku));
         }
 

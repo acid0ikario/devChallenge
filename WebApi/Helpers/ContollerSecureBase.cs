@@ -13,8 +13,6 @@ namespace WebApi.Helpers
 {
     public abstract class ContollerSecureBase: ControllerBase
     {
-       
-
         public bool isAdminUser(string token, string strkey)
         {
            
@@ -30,7 +28,7 @@ namespace WebApi.Helpers
            
             var claims = handler.ValidateToken(token, validations, out var tokenSecure);
 
-            if( claims.Claims.FirstOrDefault(x => x.Type == "rolId").Value == "ADM")
+            if(claims.Claims.FirstOrDefault(x => x.Type == "rolId").Value == "ADM")
                 return true;
 
             return false;
@@ -38,7 +36,6 @@ namespace WebApi.Helpers
 
         public string GetUsuarioToken(string token, string strkey)
         {
-
             var key = Encoding.ASCII.GetBytes(strkey);
             var handler = new JwtSecurityTokenHandler();
             var validations = new TokenValidationParameters
@@ -48,11 +45,8 @@ namespace WebApi.Helpers
                 ValidateIssuer = false,
                 ValidateAudience = false
             };
-
             var claims = handler.ValidateToken(token, validations, out var tokenSecure);
-
             return claims.Identity.Name;
-                
         }
 
         public string GetTokenAuth(HttpRequest re) {

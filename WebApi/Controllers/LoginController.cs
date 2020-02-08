@@ -54,6 +54,7 @@ namespace WebApi.Controllers
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.userId),
                 new Claim("rolId", user.rolId)
             };
+
             string secretKey = _configuration.GetValue<string>("DevSecretKey");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
