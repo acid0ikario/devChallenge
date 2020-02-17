@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -11,12 +12,25 @@ using System.Threading.Tasks;
 
 namespace WebApi.Helpers
 {
-    public abstract class ContollerSecureBase: ControllerBase
-    {
-        public bool isAdminUser(string token, string strkey)
+    public  class TokenManipulations
+    { 
+       
+        private readonly string _secretKey;
+        private readonly string _token;
+        private readonly HttpRequest _httpRequest;
+
+
+        public TokenManipulations(HttpRequest request)
         {
-           
-            var key = Encoding.ASCII.GetBytes(strkey);
+            _httpRequest = request;
+            _secretKey = ConfigurationManager.AppSetting["DevSecretKey"];
+            _token = GetTokenAuth();
+        }
+
+        public bool IsAdminUser()
+        {
+
+            var key = Encoding.ASCII.GetBytes(_secretKey);
             var handler = new JwtSecurityTokenHandler();
             var validations = new TokenValidationParameters
             {
@@ -26,7 +40,7 @@ namespace WebApi.Helpers
                 ValidateAudience = false
             };
            
-            var claims = handler.ValidateToken(token, validations, out var tokenSecure);
+            var claims = handler.ValidateToken(_token, validations, out var tokenSecure);
 
             if(claims.Claims.FirstOrDefault(x => x.Type == "rolId").Value == "ADM")
                 return true;
@@ -34,9 +48,9 @@ namespace WebApi.Helpers
             return false;
         }
 
-        public string GetUsuarioToken(string token, string strkey)
+        public string GetLoggedUser()
         {
-            var key = Encoding.ASCII.GetBytes(strkey);
+            var key = Encoding.ASCII.GetBytes(_secretKey);
             var handler = new JwtSecurityTokenHandler();
             var validations = new TokenValidationParameters
             {
@@ -45,12 +59,13 @@ namespace WebApi.Helpers
                 ValidateIssuer = false,
                 ValidateAudience = false
             };
-            var claims = handler.ValidateToken(token, validations, out var tokenSecure);
+            var claims = handler.ValidateToken(_token, validations, out var tokenSecure);
             return claims.Identity.Name;
         }
 
-        public string GetTokenAuth(HttpRequest re) {
-            var header = Request.Headers.First(x => x.Key == "Authorization");
+
+        public string GetTokenAuth() {
+            var header = _httpRequest.Headers.First(x => x.Key == "Authorization");
             string token = header.Value;
             token = token.Replace("Bearer ", "");
             return token;

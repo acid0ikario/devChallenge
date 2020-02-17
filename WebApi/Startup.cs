@@ -20,6 +20,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 //using WebApi.Models;
 using System.Text;
+using AutoMapper;
+using FluentValidation.AspNetCore;
 
 namespace WebApi
 {
@@ -34,8 +36,13 @@ namespace WebApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        { 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
+
             services.AddDbContext<DevPGSContext>(x => x.UseSqlServer(Configuration.GetConnectionString("TestDevConn")));
             services.AddScoped<ILoginRepository, LoginRepository>();
             services.AddScoped<IOrdersRepository, OrdersRepository>();
@@ -58,11 +65,12 @@ namespace WebApi
                     Encoding.UTF8.GetBytes(secretKey)),
                     ClockSkew = TimeSpan.Zero
                 });
+            services.AddAutoMapper(typeof(Startup));
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public  void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {

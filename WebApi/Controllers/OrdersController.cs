@@ -16,17 +16,19 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OrdersController : ContollerSecureBase
+    public class OrdersController : ControllerBase
     {
 
         private readonly IConfiguration _configuration;
         private readonly IOrdersRepository _orders;
         private readonly IInventoryRepository _inventory;
-        public OrdersController(IOrdersRepository orders, IConfiguration config, IInventoryRepository inventory )
+       
+        public OrdersController(IOrdersRepository orders, IConfiguration config, IInventoryRepository inventory)
         {
             _orders = orders;
             _configuration = config;
             _inventory = inventory;
+           
 
         }
 
@@ -41,8 +43,8 @@ namespace WebApi.Controllers
         [HttpPost("createOrder")]
         public ActionResult<IEnumerable<string>> createOrder([FromBody] Orders order)
         {
-            string secretKey = _configuration.GetValue<string>("DevSecretKey");
-            order.userId = GetUsuarioToken(GetTokenAuth(Request), secretKey);
+            TokenManipulations _token = new TokenManipulations(Request);
+            order.userId = _token.GetLoggedUser();
             int avalibleSotk = _inventory.GetStock(order.sku);
             if (avalibleSotk < order.qty)
             {
@@ -55,9 +57,9 @@ namespace WebApi.Controllers
         [HttpPost("cancelOrder")]
         public ActionResult<IEnumerable<string>> cancelOrder([FromBody] Orders order)
         {
-            string secretKey = _configuration.GetValue<string>("DevSecretKey");
-            string usuarioEjecuta = GetUsuarioToken(GetTokenAuth(Request), secretKey);
-            if (usuarioEjecuta != order.userId || isAdminUser(GetTokenAuth(Request),secretKey) == false)
+            TokenManipulations _token = new TokenManipulations(Request);
+            string usuarioEjecuta = _token.GetLoggedUser();
+            if (usuarioEjecuta != order.userId ||  _token.IsAdminUser() == false)
                 return Unauthorized("Solo el usuario que realizo la orden o el administrador puede cancelar la orden");
 
 
