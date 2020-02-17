@@ -19,7 +19,6 @@ namespace WebApi.Helpers
         private readonly string _token;
         private readonly HttpRequest _httpRequest;
 
-
         public TokenManipulations(HttpRequest request)
         {
             _httpRequest = request;
@@ -29,7 +28,6 @@ namespace WebApi.Helpers
 
         public bool IsAdminUser()
         {
-
             var key = Encoding.ASCII.GetBytes(_secretKey);
             var handler = new JwtSecurityTokenHandler();
             var validations = new TokenValidationParameters

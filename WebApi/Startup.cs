@@ -44,7 +44,7 @@ namespace WebApi
             });
 
             services.AddDbContext<DevPGSContext>(x => x.UseSqlServer(Configuration.GetConnectionString("TestDevConn")));
-            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IOrdersRepository, OrdersRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
 

@@ -8,10 +8,10 @@ using DataAccess.Entities;
 
 namespace Repository
 {
-    public class LoginRepository : ILoginRepository
+    public class AccountRepository : IAccountRepository
     {
         public readonly DevPGSContext _dbContext;
-        public LoginRepository(DevPGSContext pGSContext)
+        public AccountRepository(DevPGSContext pGSContext)
         {
             _dbContext = pGSContext;
         }

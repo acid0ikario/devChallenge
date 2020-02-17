@@ -16,16 +16,14 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class AccountController : ControllerBase
     {
-
-
-        private readonly ILoginRepository _login;
+        private readonly IAccountRepository _account;
         private readonly IConfiguration _configuration;
 
-        public LoginController(ILoginRepository login, IConfiguration config )
+        public AccountController(IAccountRepository account, IConfiguration config )
         {
-            _login = login;
+            _account = account;
             _configuration = config;
         }
 
@@ -33,7 +31,7 @@ namespace WebApi.Controllers
         [HttpPost("Authenticate")]
         public IActionResult Authenticate ([FromBody] Users usuario)
         {
-            Users objUsuario = _login.AuthenticateUser(usuario.userId, usuario.password);
+            Users objUsuario = _account.AuthenticateUser(usuario.userId, usuario.password);
             if (objUsuario != null)
             {
                 return BuildToken(objUsuario);
@@ -44,7 +42,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Users>> Get()
         {
-           return Ok(_login.GetListaUsers());
+           return Ok(_account.GetListaUsers());
         }
 
         private IActionResult BuildToken(Users user)
